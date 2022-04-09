@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns: th = "https://thymeleaf.org">
+<head>
+    <title>Index Page</title>
+    <style>
+        form {display : table}
+        label {display : table-cell}
+        input {display : table-cell}
+        p {display : table-row}
+    </style>
+</head>
+<body>
+Enter letters followed by their position in the word (ex. A2E3H1) <br>
+positions not needed for gray letters. If no green letters then leave blank:
+<form action="#" th:action="@{/saveRandom}" th:object="${information}" method = "get">
+    <p>
+        <label>Yellow </label><input type = "text" name = "yellow" />
+    </p>
+    <p>
+        <label>Green  </label><input type = "text" name = "green" />
+    </p>
+    <p>
+        <label>Gray </label><input type = "text" name = "gray" />
+    </p>
+    <p>
+        <button name="submit" type="submit" value="0">Submit</button>
+    </p>
+</form>
+</body>
+</html>
