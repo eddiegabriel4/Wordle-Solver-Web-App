@@ -32,6 +32,24 @@ public class Information {
         return this.gray;
     }
 
+    public void removeGray(String letter) {
+        this.gray = this.gray.replace(letter, "");
+    }
+
+    public void filter() {
+        for (int i = 0 ; i < this.get_yellow().length(); i++) {
+            if (this.get_gray().contains(Character.toString(this.get_yellow().charAt(i)))) {
+                this.removeGray(Character.toString(this.get_yellow().charAt(i)));
+            }
+        }
+
+        for (int i = 0 ; i < this.get_green().length(); i++) {
+            if (this.get_gray().contains(Character.toString(this.get_green().charAt(i)))) {
+                this.removeGray(Character.toString(this.get_green().charAt(i)));
+            }
+        }
+    }
+
 
     @Override
     public String toString() {

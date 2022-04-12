@@ -1,25 +1,22 @@
 package com.example.demo.Information;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
-public class Words {
+import static java.lang.Math.round;
 
-    List<Word> words;
+public class Frequency_Calculator {
+
     public HashMap<String, Double> one_counts = new HashMap<>();
     public HashMap<String, Double> two_counts = new HashMap<>();
     public HashMap<String, Double> three_counts = new HashMap<>();
     public HashMap<String, Double> four_counts = new HashMap<>();
     public HashMap<String, Double> five_counts = new HashMap<>();
+    List<Word> Words = new ArrayList<>();
 
-    public Words(){
-
-        this.words = null;
+    public Frequency_Calculator() {
         this.one_counts = one_counts;
         this.two_counts = two_counts;
         this.three_counts = three_counts;
@@ -27,30 +24,20 @@ public class Words {
         this.five_counts = five_counts;
     }
 
-    public void load_words() throws IOException {
-        String key_name = "words.txt";
-        String bucket_name = "all-words";
 
+    public class CustomComperator implements Comparator<Word> {
+        @Override
+        public int compare(Word w1, Word w2) {
+            return w2.freq_value.compareTo(w1.freq_value);
 
-        final AmazonS3 s3 = AmazonS3ClientBuilder.defaultClient();
-        S3Object object = s3.getObject(new GetObjectRequest(bucket_name, key_name));
-        InputStream objectData = object.getObjectContent();
-        List<Word> WORDS = new ArrayList<>();
-        Scanner scan = new Scanner(new InputStreamReader(object.getObjectContent()));
-        while (scan.hasNextLine()) {
-            Word word = new Word(scan.nextLine().toUpperCase(Locale.ROOT));
-            WORDS.add(word);
         }
-        objectData.close();
-        scan.close();
-        this.set_words(WORDS);
-
 
     }
 
 
+
     public void count_getter() {
-        for (Word word: words) {
+        for (Word word: Words) {
             for (int i = 0; i < word.get_word().length(); i++) {
                 if (i == 0) {
                     if (one_counts.containsKey(Character.toString(word.get_word().charAt(i)))) {
@@ -119,18 +106,6 @@ public class Words {
         }
         this.five_counts = five_counts;
     }
-
-
-
-    public List<Word> get_words(){
-        return this.words;
-    }
-
-
-    public void set_words(List<Word> words) {
-        this.words = words;
-    }
-
 
 
 

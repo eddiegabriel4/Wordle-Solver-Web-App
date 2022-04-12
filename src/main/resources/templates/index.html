@@ -69,8 +69,12 @@
     </style>
 </head>
 <div id="wrapper">
-<h1 style = "font-family: monospace "> Welcome to Wordle Solver</h1>
+<h1 style = "font-family: monospace "> Welcome to Wordle Calculator</h1>
 <body style = "font-family: monospace">
+Wordle Calculator takes data from any game that you are playing and uses an advanced
+filtering and probability algorithm to output all possible answers in the order of most
+to least likely to be the answer
+<br></br>
 Enter letters followed by their position in the word (ex. A2E3H1) <br>
 positions not needed for gray letters. If no green letters then leave blank
 <form autocomplete="off" action="#" th:action="@{/saveRandom}" th:object="${information}" method = "get">

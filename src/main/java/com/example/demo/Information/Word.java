@@ -1,20 +1,52 @@
 package com.example.demo.Information;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class Word {
 
     String word;
+    public Double freq_value;
 
     public Word(String word) {
+
         this.word = word;
+        this.freq_value = 0.0;
     }
 
     public String get_word() {
         return  this.word;
     }
+
+    public void calculate_freq_value(HashMap<String, Double> one_counts,
+                                     HashMap<String, Double> two_counts,
+                                     HashMap<String, Double> three_counts,
+                                     HashMap<String, Double> four_counts,
+                                     HashMap<String, Double> five_counts
+                                     ) throws FileNotFoundException {
+        Double counter = 0.0;
+        counter += one_counts.get(Character.toString(this.get_word().charAt(0)));
+        counter += two_counts.get(Character.toString(this.get_word().charAt(1)));
+        counter += three_counts.get(Character.toString(this.get_word().charAt(2)));
+        counter += four_counts.get(Character.toString(this.get_word().charAt(3)));
+        counter += five_counts.get(Character.toString(this.get_word().charAt(4)));
+        this.freq_value = counter;
+
+        }
+
+    public static class CustomComperator implements Comparator<Word> {
+        @Override
+        public int compare(Word w1, Word w2) {
+            return w2.freq_value.compareTo(w1.freq_value);
+
+        }
+
+    }
+
 
 
     public boolean allOrangeinWord(List<String> orangeLetters) {
@@ -100,6 +132,7 @@ public class Word {
 
     @Override
     public String toString(){
+
         return this.get_word();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,9 +32,12 @@ public class InformationController {
     public String saveRandom(Information information, Model model) throws IOException {
         information.uppercase();
         /* information.filter()? */
+        information.filter();
         model.addAttribute(information);
         Words words = new Words();
         words.load_words();
+        words.count_getter();
+        words.frequencies();
 
         List<String> orangeList = new ArrayList<String>(Arrays.asList(information.get_yellow().split("(?<=\\G..)")));
         List<Word> all_orange_words = words.get_words().stream().filter(w -> w.allOrangeinWord(orangeList) == true).collect(Collectors.toList());
@@ -52,7 +56,11 @@ public class InformationController {
             words.set_words(FinalWords);
         }
 
-
+        for (Word word : words.get_words()) {
+            word.calculate_freq_value(words.one_counts, words.two_counts,
+                    words.three_counts, words.four_counts, words.four_counts);
+        }
+        Collections.sort(words.get_words(), new Word.CustomComperator());
         model.addAttribute(words);
         return "words_final";
     }

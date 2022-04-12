@@ -5,7 +5,10 @@
     <title>Title</title>
 </head>
 <body style = "font-family: monospace ">
-potential words:
+potential answers (in order of most to least likely)<br>
+sorted by precisely measuring the probability that a given <br>
+letter will be in a given position based on the entire wordset<br>
+and finding the most ideal word that is still a possible outcome:
 <p style = "font-family: monospace " th:text="${words.get_words()}"></p>
 <br>
 <form style = "font-family: monospace " action="#" th:action="@{/}" >
